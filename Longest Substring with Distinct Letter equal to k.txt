@@ -1,0 +1,54 @@
+Problem Statement #
+Given a string, find the length of the longest substring in it with no more than K distinct characters.
+
+Example 1:
+
+Input: String="araaci", K=2
+Output: 4
+Explanation: The longest substring with no more than '2' distinct characters is "araa".
+Example 2:
+
+Input: String="araaci", K=1
+Output: 2
+Explanation: The longest substring with no more than '1' distinct characters is "aa".
+--------------------------------------------------------------------------------------------------------------------
+/*package whatever //do not write package name here */
+
+import java.util.*;
+
+class SubstringK {
+    public static int findLength(String str,int k){
+        if(str==null|| str.length()==0 || str.length()<k)
+            return 0;
+        
+        int start=0;
+        int maxLength=0;
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(int i=0;i<str.length();i++){
+            char ch=str.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+            while(map.size()>k){
+                char leftch = str.charAt(i);
+                map.put(leftch,map.get(leftch)-1);
+                if(map.get(leftch)==0){
+                    map.remove(leftch);
+                }
+                start++;
+            }
+            maxLength=Math.max(maxLength,i-start+1);
+        }
+        return maxLength;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+	public static void main (String[] args) {
+		System.out.println("Maximum length of the substring is:"+ SubstringK.findLength("araaci",2));
+		System.out.println("Maximum length of the substring is:"+ SubstringK.findLength("araaci",1));
+	}
+}
