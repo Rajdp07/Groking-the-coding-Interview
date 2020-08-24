@@ -1,0 +1,38 @@
+Given a string, find the length of the longest substring which has no repeating characters.
+
+Example 1:
+
+Input: String="aabccbb"
+Output: 3
+Explanation: The longest substring without any repeating characters is "abc".
+Example 2:
+
+Input: String="abbbb"
+Output: 2
+Explanation: The longest substring without any repeating characters is "ab".
+----------------------------------------------------------------------------------------------------------------
+import java.util.*;
+
+class GFG {
+    public static int FindLength(String str){
+    int start=0;
+    int maxLength=0;
+    Map<Character,Integer> map = new HashMap<>();
+    for(int i=0;i<str.length();i++){
+        char ch=str.charAt(i);
+        if (map.containsKey(ch)){
+            start=Math.max(start,map.get(ch)+1);
+        }
+        map.put(ch,i);
+        maxLength=Math.max(maxLength,i-start+1);
+    }
+    return maxLength;
+    }
+    
+    
+    
+	public static void main (String[] args) {
+		System.out.println("Length of Longest Substring is:" + GFG.FindLength("aabccbb"));
+	}
+}
+//i have coded in gfg ide so class name is gfg ignore it.
