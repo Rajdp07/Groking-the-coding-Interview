@@ -1,0 +1,40 @@
+Input: String="oidbcaf", Pattern="abc"
+Output: true
+Explanation: The string contains "bca" which is a permutation of the given pattern.
+-----------------------------------------------------------------------------------------------------------------------
+
+import java.util.*;
+
+class GFG {
+    public static boolean permutations(String str,String pattern){
+        int start=0, matched=0;
+        Map<Character,Integer> map = new HashMap<>();
+        for(char ch: pattern.toCharArray())
+        map.put(ch,map.getOrDefault(ch,0)+1);
+        for(int i =0;i<str.length();i++){
+            char ch2=str.charAt(i);
+            if(map.containsKey(ch2)){
+                
+                map.put(ch2,map.get(ch2)-1);
+                if(map.get(ch2)==0)
+                matched++;
+            }
+            if(matched==map.size())
+            return true;
+            if(i>=pattern.length()-1){
+                char left=str.charAt(start++);
+                if(map.containsKey(left)){
+                    if(map.get(left)==0)
+                    matched--;
+                    map.put(left,map.get(left)+1);
+                }
+            }
+        }
+        return false;
+    }
+    
+	public static void main (String[] args) {
+		System.out.println("Permutations exists:"+ GFG.permutations("oidbcaf","xzy"));
+		System.out.println("Permutations exists:"+ GFG.permutations("oidbcaf","abc"));
+	}
+}
