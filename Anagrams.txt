@@ -1,0 +1,44 @@
+import java.util.*;
+
+class GFG {
+	
+	    public static List<Integer> Anagrams(String str, String pattern){
+	        int start=0,matched=0;
+	        Map<Character,Integer> map = new HashMap<>();
+	        for(char ch: pattern.toCharArray())
+	        map.put(ch,map.getOrDefault(ch,0)+1);
+	        List<Integer> result = new ArrayList<>();
+	        for(int i=0;i<str.length();i++){
+	            char right=str.charAt(i);
+	            if(map.containsKey(right)){
+	                map.put(right,map.get(right)-1);
+	                if(map.get(right)==0)
+	                matched++;
+	            }
+	            if(matched==map.size())
+	            result.add(start);
+	            if(i>=pattern.length()-1){
+	                char left=str.charAt(start++);
+	                if(map.containsKey(left)){
+	                    if(map.get(left)==0)
+	                    matched--;
+	                    map.put(left,map.get(left)+1);
+	                    
+	                }
+	            }
+	            
+	        }
+	        return result;
+	        
+	    }
+	    
+	    
+	    
+	    
+	    
+	    public static void main (String[] args) {
+	        
+		System.out.println(GFG.Anagrams("ppqp","pq"));
+		System.out.println(GFG.Anagrams("abbcabc","abc"));
+	}
+}
